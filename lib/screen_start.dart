@@ -27,7 +27,6 @@ class ScreenStart extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Фон
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -95,7 +94,6 @@ class ScreenStart extends StatelessWidget {
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
                           child: Container(
-                            // полупрозрачный фон + тонкая рамка для объёма
                             decoration: BoxDecoration(
                               color: const Color(
                                 0xFFFFFFFF,
@@ -145,7 +143,7 @@ class ScreenStart extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 16),
 
-                                // градиентная кнопка
+                                // gradientbutton
                                 DecoratedBox(
                                   decoration: BoxDecoration(
                                     gradient: const LinearGradient(
