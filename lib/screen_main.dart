@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:jp_app/app_routes.dart';
 
 void main() {
@@ -92,7 +93,6 @@ class ScreenMain extends StatelessWidget {
     ),
   ];
 
-  //final List<String> items = ["Erste", "Zweite", "Dritte", "Vierte", "Fünfte"];
   final List<String> filters = [
     "All categories",
     "Salty",
@@ -209,42 +209,9 @@ class ScreenMain extends StatelessWidget {
                                   ),
                               ],
                             ),
-
-                            /*
-                          
-                          ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: filters.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: OutlinedButton(
-                                  onPressed: () => Navigator.pushNamed(
-                                    context,
-                                    Routes.screenDetail,
-                                  ),
-                                  child: Text(filters[index]),
-                                ),
-                              );
-                            },
-                          ),
-
-                          */
                           ),
 
                           const SizedBox(height: 8),
-
-                          /*
-                          SizedBox(
-                            height: 50,
-                            child: TabBarView(
-                              children: [
-                                for (final f in filters)
-                                  Center(child: Text("Контент для $f")),
-                              ],
-                            ),
-                          ),
-*/
                         ],
                       ),
                     ),
@@ -431,12 +398,6 @@ class _TopCard extends StatelessWidget {
         ),
       ),
 
-      /*
-      child: ClipRRect(
-        borderRadius: BorderRadiusGeometry.circular(30),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
-          */
       child: Stack(
         children: [
           Padding(
@@ -534,20 +495,16 @@ class _TopCard extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, Routes.screenMain);
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => const MyModal(),
+                            );
                           },
                           child: const Text('Add to Order'),
                         ),
                       ),
-
-                      /*                    
-                      child: FilledButton.tonal(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, Routes.screenDetail),
-                        child: const Text("Add to Order"),
-                      ),
-
-*/
                     ),
                   ],
                 ),
@@ -555,63 +512,6 @@ class _TopCard extends StatelessWidget {
             ),
           ),
 
-          /*
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      snack.name,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Text(
-                      "juhg ju",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  snack.details,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                const Spacer(), //
-                Text(
-                  '€ ${snack.price}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                FilledButton.tonal(
-                  onPressed: () =>
-                      Navigator.pushNamed(context, Routes.screenDetail),
-                  child: const Text("btn"),
-                ),
-              ],
-            ),
-          ),
-
-
-          */
           Align(
             alignment: Alignment.bottomRight,
             child: Transform.translate(
@@ -635,6 +535,290 @@ class _TopCard extends StatelessWidget {
         ),
       ),
 */
+    );
+  }
+}
+
+class MyModal extends StatelessWidget {
+  const MyModal({super.key});
+
+  //
+
+  @override
+  Widget build(BuildContext context) {
+    int count = 3;
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      color: const Color.fromARGB(120, 0, 0, 0),
+      child: Center(
+        child: Stack(
+          children: [
+            // bg-pic
+            Align(
+              alignment: Alignment.topCenter,
+              child: Transform.translate(
+                offset: const Offset(6, 0),
+                child: FractionallySizedBox(
+                  widthFactor: 0.9,
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.asset(
+                      "assets/images/pics/cat_cupcakes_3D.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsetsGeometry.fromLTRB(20, 100, 20, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Align(
+                    alignment: AlignmentGeometry.topRight,
+                    child: IconButton.filled(
+                      style: ButtonStyle(
+                        elevation: WidgetStatePropertyAll(1),
+                        shadowColor: WidgetStatePropertyAll(
+                          Color.fromARGB(255, 255, 255, 255),
+                        ),
+                        backgroundColor: WidgetStatePropertyAll(
+                          const Color.fromARGB(255, 60, 60, 60),
+                        ),
+                        foregroundColor: WidgetStatePropertyAll(
+                          const Color.fromARGB(204, 255, 255, 255),
+                        ),
+                      ),
+
+                      onPressed: () {},
+                      icon: Icon(Icons.close_sharp),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsetsGeometry.fromLTRB(0, 180, 0, 0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+
+                        border: Border.all(
+                          width: 1,
+                          color: Color.fromARGB(60, 255, 255, 255),
+                        ),
+
+                        color: Color.fromARGB(200, 255, 255, 255),
+                      ),
+                      width: double.infinity,
+                      height: 60,
+                      //color: Colors.blueAccent,
+                      alignment: Alignment.center,
+
+                      child: const Text(
+                        "Контейнер на всю ширину",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          height: 60,
+                          //color: Colors.green,
+                          alignment: Alignment.center,
+                          child: SegmentedButton<String>(
+                            segments: const <ButtonSegment<String>>[
+                              ButtonSegment(
+                                value: "small",
+                                label: Text("Small"),
+                              ),
+                              ButtonSegment(
+                                value: "medium",
+                                label: Text("Medium"),
+                              ),
+                              ButtonSegment(
+                                value: "large",
+                                label: Text("Large"),
+                              ),
+                            ],
+                            selected: const <String>{"medium"},
+                            onSelectionChanged: (Set<String> newSelection) {
+                              // setState(() => _selected = newSelection); //  StatefulWidget
+                            },
+                            style: ButtonStyle(
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
+                              backgroundColor:
+                                  WidgetStateProperty.resolveWith<Color?>((
+                                    states,
+                                  ) {
+                                    return states.contains(WidgetState.selected)
+                                        ? const Color.fromARGB(
+                                            40,
+                                            255,
+                                            255,
+                                            255,
+                                          )
+                                        : const Color.fromARGB(
+                                            80,
+                                            255,
+                                            255,
+                                            255,
+                                          );
+                                  }),
+
+                              foregroundColor:
+                                  WidgetStateProperty.resolveWith<Color?>((
+                                    states,
+                                  ) {
+                                    return states.contains(WidgetState.selected)
+                                        ? Colors.black
+                                        : Colors.white;
+                                  }),
+
+                              side: const WidgetStatePropertyAll(
+                                BorderSide(
+                                  color: Color.fromARGB(71, 255, 255, 255),
+                                  width: 1,
+                                ),
+                              ),
+                              shape: WidgetStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+
+                              textStyle: const WidgetStatePropertyAll(
+                                TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+
+                              padding: const WidgetStatePropertyAll(
+                                EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 4,
+                                ),
+                              ),
+
+                              minimumSize: const WidgetStatePropertyAll(
+                                Size(0, 32),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: 12),
+
+                      Expanded(
+                        child: Container(
+                          height: 60,
+                          color: Colors.orange,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () {
+                                  /*
+              setState(() {
+                if (count > 0) count--;
+                */
+                                  //});
+                                },
+                              ),
+                              Text(
+                                count.toString(),
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () {
+                                  //setState(() {
+                                  //count++;
+                                  //});
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xfff075d5), Color(0xfff59dbe)],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.screenMain);
+                        },
+                        child: const Text('Add to Order for'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            /*
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsetsGeometry.fromLTRB(20, 200, 20, 20),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 600),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      child: Text(
+                        "222222",
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 22, 22, 22),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                Text("333"),
+              ],
+            ),
+
+*/
+
+            // inhalt
+          ],
+        ),
+      ),
     );
   }
 }
